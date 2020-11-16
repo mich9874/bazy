@@ -1,0 +1,41 @@
+Zad. 1
+1) create table postac (id_postaci int auto_increment primary key, nazwa varchar(40), rodzaj enum('wiking','ptak','kobieta'), data_ur date, wiek int unsigned);
+2) insert into postac values (default, 'Bjorn', 'wiking', '1874-02-23', '145');
+insert into postac values (default, 'Drozd', 'ptak', '2019-05-23', '1');
+insert into postac values (default, 'Tesciowa', 'kobieta', '1845-07-23', '170');
+3) update postac set wiek=88 where id_postaci=3;
+
+Zad. 2
+1) create table walizka (id_walizki int auto_increment primary key, pojemnosc int unsigned, kolor enum('rozowy','czerwony','teczowy','zolty'), id_wlasciciela int, foreign key (id_wlasciciela) references postac (id_postaci));
+alter table walizka drop foreign key walizka_ibfk_1;
+alter table walizka add foreign key (id_wlasciciela) references postac (id_postaci) on delete cascade;
+2) alter table walizka alter kolor set default 'rozowy';
+3) insert into walizka values (default, 40, default, 1);
+insert into walizka values (default, 20, 'teczowy', 3);
+
+Zad. 3
+1) create table izba (adres_budynku varchar(45), nazwa_izby varchar(45), metraz int unsigned, wlasciciel int, primary key (adres_budynku, nazwa_izby), foreign key (wlasciciel) references postac (id_postaci) on delete set null);
+2) alter table izba add column kolor_izby varchar(30) default 'czarny' after metraz;
+3) insert into izba values ('Warszawa', 'Spizarnia', 50, default, 1);
+
+Zad. 4
+1) create table przetwory (id_przetworu int primary key auto_increment, rok_produkcji int default 1654, id_wykonawcy int, zawartosc varchar(100), dodatek varchar(60) default 'papryczka chilli', id_konsumenta int, foreign key (id_wykonawcy) references postac (id_postaci), foreign key (id_konsumenta) references postac (id_postaci));
+2) insert into przetwory values (default, default, 1, 'bigos', default, 3);
+
+Zad. 5
+1) insert into postac values (default, 'Ubbe', 'wiking', '1882-06-20', '120');
+insert into postac values (default, 'Hvitserk', 'wiking', '1881-01-05', '119');
+insert into postac values (default, 'Sigurd', 'wiking', '1880-03-15', '117');
+insert into postac values (default, 'Ivar', 'wiking', '1880-10-21', '116');
+insert into postac values (default, 'Ragnar', 'wiking', '1860-01-02', '160');
+2) create table statek (nazwa_statku varchar(45) primary key, rodzaj_statku enum('sneka', 'knara', 'drakkar'), data_wodowania date, max_ladownosc int unsigned);
+3) insert into statek values ('Orka','drakkar','1885-05-30', 90);
+insert into statek values ('Lew','knara','1890-10-05', 40);
+4) alter table postac add column funkcja varchar(100);
+5) update postac set funkcja='kapitan' where id_postaci=1;
+6) alter table postac add column statek varchar(45);
+alter table postac add foreign key (statek) references statek (nazwa_statku);
+7) update postac set statek='Orka' where id_postaci in (1, 2, 4, 6);
+update postac set statek='Lew' where id_postaci in (5, 7, 8);
+8) delete from izba where adres_budynku='Warszawa' and nazwa_izby='Spizarnia';
+9) drop table izba;
