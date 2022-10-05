@@ -1,0 +1,49 @@
+body {
+    background-color: lightgray;
+    font-family: monospace;
+    margin: 0;
+    padding: 0;
+}
+
+#header {
+	position: fixed;
+	width: 100%;
+	top: 0;
+	left: 0;
+	background: rgba(0,0,0,0.8);
+    padding: 20px 0;
+    z-index: 1;
+    color: white;
+}
+
+#container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+#header #container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bar ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.bar ul li {
+    float: left;
+    margin-left: 30px;
+    font-size: 18px;
+}
+
+.bar ul li a {
+    text-decoration: none;
+    color: white;
+    transition: .5s;
+}
+.bar ul li a.active, .bar ul li a:hover {
+    color: red;
+}
